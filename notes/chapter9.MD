@@ -223,7 +223,7 @@ svg.append('g')
 ```  
 
 ### Other Updating  
-Adding a new value to our data.  
+**Adding a new value to our data**  
 Generate a new number and add it to our dataset.  
 New data point means new bar which means we need to update our scale.  
 `xScale.domain(d3.range(dataset.length));`  
@@ -270,3 +270,46 @@ The code above contains the new rect. We can now merge it with all the others us
     return yScale(d)
 })
 ```
+
+**Removing values from our data**  
+`exit()`  
+We can use `shift()` to remove the first element from the dataset or `pop()` to remove the last
+`remove()` is a special transition method that waits until the transition is complete and then deletes the element from the DOM forever  
+Its good practice to perform a transition first rather than simply removing elements straight away. 
+The below does not remove labels or update bar colours. 
+Even though we are removing the first elements of the dataset its the bar on the very right that is being removed.  
+The values are updating correctly but the bars and graph are not.
+```javascript  
+bars.exit()  
+    .transition()  
+    .duration(500)  
+    .attr('x', w)  
+    .remove()
+```
+
+#### Data Joins  
+A data join happens whenever you bind data to DOM elements - everytime you call `data()`  
+The default join is by index order; first datum is bound to the first DOM element.  
+Use a key function to move away from the above. 
+Instead of an array we now have an array of objects and instead of using `d` we need to use `d.value`.  
+Define a key function  
+Then use the key function in the data function
+```javascript  
+var key = function(d) {
+  return d.key;
+}  
+.data(dataset, key)     // include key function here. 
+
+// set bar to go off the left of the graph  
+bars.exit()  
+  .transition()  
+  .duration(500)  
+  .attr('x', -xScale.bandwidth())  
+  .remove()
+```
+
+ * `data()` binds data to elements, but also returns the update selection  
+ * The update selection can contain `enter` and `exit` selections which can be accessed via `enter()` or `exit()`  
+ * `merge()` is used to merge the enter and update selections.  
+ * Data joins determine how values are matched with elements - defaults to index  
+ 
