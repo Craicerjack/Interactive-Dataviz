@@ -22,7 +22,41 @@
     </div>
     <script type="text/javascript" src="js/d3.min.js"></script>
     <script type="text/javascript">
-        // YOUR D3 CODE HERE
+        var dataset = [5, 10, 15, 20, 25];
+        // <circle cx="25" cy="25" r="25" fill="rgba(128, 0, 128, 1.0)" />
+        var w = 500;
+        var h = 250;
+
+        var svg = d3.select('.container')
+                    .append('svg')
+                    .attr('width', w)
+                    .attr('height', h);
+
+        // above
+        // we can chain all the svg attributes together to create the svg in one line of code
+
+        // below
+        // we add our circles.
+        // aswell as the datum being available - d, the index of the datum is also available - i
+        // as we saw on the index page a circle has a cx, cy, and r value so we will need to create them
+        // for cx we dont want our circles on top of each other so we position them based on their index
+        var circles = svg.selectAll('circle')
+                        .data(dataset)
+                        .enter()
+                        .append('circle')
+                        .attr('cx', function(d, i) {
+                            return (i * 50) + (d*2);
+                        })
+                        .attr('cy', h/2)
+                        .attr('r', function(d) {
+                            return d;
+                        })
+                        // .attr('fill', 'yellow')
+                        // .attr('stroke', 'red')
+                        // .attr('stroke-width', function(d) {
+                        //     return d/2;
+                        // })
+
     </script>
 </body>
 </html>

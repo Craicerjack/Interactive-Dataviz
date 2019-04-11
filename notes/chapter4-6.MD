@@ -69,7 +69,7 @@ d3.csv("food.csv", rowConverter, function(error, data) {
 ```  
 
 Now that we have our data we can bind it to elements.  
-```javscript  
+```javascript  
 d3.select("body").selectAll("p")
     .data(dataset)
     .enter()
