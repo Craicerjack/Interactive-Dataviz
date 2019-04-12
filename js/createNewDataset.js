@@ -1,6 +1,6 @@
 function createNewArrayData(numDataPts) {
     var dataset = [];                   //Initialize empty array
-    var xRange = Math.random() * 100;  //Max range of new x values
+    var xRange = Math.random() * 500;  //Max range of new x values
     for (var i = 0; i < numDataPts; i++) {                   //Loop numDataPoints times
         var newNumber1 = Math.floor(Math.random() * xRange);    //New random integer
         var newNumber2 = Math.floor(Math.random() * xRange);    //New random integer
